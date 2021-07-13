@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>SkyOS Desktop</title><meta property="og:title" content="SkyOS Desktop" /><meta property="og:type" content="website" /><meta name="description" content="The desktop for SkyOS is stored in settings/desktop.dat, which is a serialized table (textutils.serialize()), and it&#39;s d..." /><meta property="og:description" content="The desktop for SkyOS is stored in settings/desktop.dat, which is a serialized table (textutils.serialize()), and it&#39;s d..." /><meta property="og:image" content="https://skydocs.madefor.cc/pack.png" /><meta property="og:site_name" content="SkyDocs" /><link rel="stylesheet" href="../main.css?v=b47433c0" type="text/css" /><meta name="theme-color" content="#c8d87c"></head><body><nav><button class="nav-reveal" type="button">&#9776;</button><h1><a href=".././"><img src="../pack.png" alt="SkyDocs" /></a></h1><div class="nav-links"><h2 class="collapsed" tabindex="0">SkyOS</h2><ul><li><a href="../skyos/coro.html">coro</a></li><li><a href="../skyos/crash.html">crash</a></li><li><a href="../skyos/file.html">file</a></li><li><a href="../skyos/gestures.html">gestures</a></li><li><a href="../skyos/graphic.html">graphic</a></li><li><a href="../skyos/log.html">log</a></li><li><a href="../skyos/skimg.html">skimg</a></li><li><a href="../skyos/sos.html">sos</a></li><li><a href="../skyos/timeserver.html">timeserver</a></li><li><a href="../skyos/windowman.html">windowman</a></li></ul><h2 class="collapsed" tabindex="0">Misc</h2><ul><li><a href="../misc/button.html">button</a></li><li><a href="../misc/cipher.html">cipher</a></li><li><a href="../misc/devbin.html">devbin</a></li><li><a href="../misc/imgconvert.html">imgconvert</a></li><li><a href="../misc/pastebin.html">pastebin</a></li><li><a href="../misc/progressbar.html">progressbar</a></li><li><a href="../misc/roll20.html">roll20</a></li><li><a href="../misc/sUtils.html">sUtils</a></li><li><a href="../misc/skyrtle.html">skyrtle</a></li><li><a href="../misc/travel.html">travel</a></li></ul><h2 class="collapsed" tabindex="0">Create</h2><ul><li><a href="../create/piston.html">piston</a></li></ul><h2 class="collapsed" tabindex="0">WIP</h2><ul><li><a href="../wip/TCP Install Guide.html">TCP Install Guide</a></li><li><a href="../wip/WIP Projects.html">WIP Projects</a></li><li><a href="../wip/comms .html">comms </a></li><li><a href="../wip/tcp.html">tcp</a></li></ul><h2 tabindex="0">Articles</h2><ul><li><a href="Installer.html">Installer</a></li><li><strong>SkyOS Desktop</strong></li><li><a href="SkyOS Settings.html">SkyOS Settings</a></li><li><a href="To-Do.html">To-Do</a></li></ul><h2 class="collapsed" tabindex="0">SkyOS Events</h2><ul><li><a href="../skyosevent/long_press.html">long_press</a></li><li><a href="../skyosevent/pan.html">pan</a></li><li><a href="../skyosevent/pan_up.html">pan_up</a></li><li><a href="../skyosevent/swipe.html">swipe</a></li></ul><h2 class="collapsed" tabindex="0">SkyOS Callbacks</h2><ul><li><a href="../skyoscallback/SkyOS.back().html">SkyOS.back()</a></li><li><a href="../skyoscallback/SkyOS.close().html">SkyOS.close()</a></li><li><a href="../skyoscallback/SkyOS.visible().html">SkyOS.visible()</a></li></ul></div></nav><div id="main"><section id="content"><h1>SkyOS Desktop</h1><p>The desktop for SkyOS is stored in <code>settings/desktop.dat</code>, which is a serialized table (<code>textutils.serialize()</code>), and it&#39;s data structure goes as follows:</p>
+<pre class="highlight highlight-lua">{
+  { -- This is the first desktop layout, or the home screen. Each screen is a table in this layer.
+    { -- This is Y level 1.
+      { -- This is X 1, which is `desktop[1][1]`
+        name = &quot;Shell&quot;, -- Text to display under the icon.
+        type = &quot;app&quot; -- Whether or not this is an app or folder.
+        image = &quot;graphics/app/shell.skimg&quot;, -- Image of the icon, located in &quot;graphics/app&quot;
+        program = &quot;rom/programs/shell.lua&quot;, -- Program to open when this is clicked.
+      },
+      { -- This is X 2, which is `desktop[1][2]`
+        name = &quot;Other&quot;,
+        type = &quot;folder&quot;,
+        contents = { -- This is where the contents of the folder are. Folders only support a 3x3 arrangement of programs.
+          { -- Y level 1 of the folder.
+            { -- X 1, `desktop[1][2].contents[1][1]
+              name = &quot;Shell&quot;, -- Text to display under the icon.
+              type = &quot;app&quot; -- Whether or not this is an app or folder. Folders can only contain apps.
+              image = &quot;graphics/app/shell.skimg&quot;, -- Image of the icon, located in &quot;graphics/app&quot;
+              program = &quot;rom/programs/shell.lua&quot;, -- Program to open when this is clicked.
+            }
+          }
+        }
+      }
+    }
+  }
+}</pre><p>There will be a basic interface for this in the <code>sos</code> api.</p>
+</section><footer>Last updated on 2021-07-13</footer></div><script src="../main.js?v=d208e9df" type="text/javascript" defer=""></script></body></html>
